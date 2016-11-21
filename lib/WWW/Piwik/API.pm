@@ -3,10 +3,15 @@ package WWW::Piwik::API;
 use 5.010001;
 use strict;
 use warnings;
+use Moo;
+use Types::Standard qw/Str Object Int/;
+use JSON::MaybeXS;
+use URI;
+use LWP::UserAgent;
 
 =head1 NAME
 
-WWW::Piwik::API - The great new WWW::Piwik::API!
+WWW::Piwik::API - Tracking module for Piwik using the Tracking API
 
 =head1 VERSION
 
@@ -19,35 +24,88 @@ our $VERSION = '0.01';
 
 =head1 SYNOPSIS
 
-Quick summary of what the module does.
+my $tracker = WWW::Piwik::API->new(endpoint => $ENV{PIWIK_URL} || 'http://localhost/piwik.php',
+                                   idsite => $ENV{PIWIK_IDSITE} || 1,
+                                   token_auth => $ENV{PIWIK_TOKEN_AUTH},
+                                  );
+# see https://developer.piwik.org/api-reference/tracking-api for params
+$tracker->track(%data)
 
-Perhaps a little code snippet.
+=head1 ACCESSORS
 
-    use WWW::Piwik::API;
+They are read-only and need to be set in the constructor.
 
-    my $foo = WWW::Piwik::API->new();
-    ...
+=head2 endpoint
 
-=head1 EXPORT
+The endpoint of piwik. Required.
 
-A list of functions that can be exported.  You can delete this section
-if you don't export anything, such as for a purely object-oriented module.
+=head2 idsite
 
-=head1 SUBROUTINES/METHODS
+The ID of the site being tracked. You can look this up in the piwik console.
 
-=head2 function1
+=head2 token_auth
+
+The authentication token (you need an admin account for this, and the
+token can be looked up under Personal settings/API.
 
 =cut
 
-sub function1 {
+has endpoint => (is => 'ro', isa => Str, required => 1);
+
+has idsite => (is => 'ro', isa => Int, required => 1);
+
+has token_auth => (is => 'ro', isa => Str);
+
+has ua => (is => 'ro',
+           isa => Object,
+           default => sub {
+               my $ua = LWP::UserAgent->new;
+               $ua->timeout(5);
+               return $ua;
+           });
+
+sub track {
+    my ($self, %data) = @_;
+    my $uri = $self->track_uri(%data);
+    my $res = $self->ua->get($uri->as_string);
+    return $res;
 }
 
-=head2 function2
-
-=cut
-
-sub function2 {
+sub track_uri {
+    my ($self, %data) = @_;
+    my %params = (bots => 1,
+                  rec => 1,
+                  idsite => $self->idsite,
+                  token_auth => $self->token_auth,
+                 );
+    my $json = JSON::MaybeXS->new(ascii => 1);
+    foreach my $k (keys %data) {
+        my $v = $data{$k};
+        if (defined $v) {
+            if (ref($v)) {
+                $params{$k} ||= $json->encode($v);
+            }
+            else {
+                $params{$k} ||= $v;
+            }
+        }
+    }
+    my $uri = URI->new($self->endpoint);
+    $uri->query_form(%params);
+    return $uri;
 }
+
+
+=head1 METHODS
+
+=head2 track(%data)
+
+Build an URI and do a call against it, serializing the parameters and
+adding the default one set in the constructor.
+
+=head2 track_uri(%data)
+
+The URI against which track will be called.
 
 =head1 AUTHOR
 
@@ -92,7 +150,9 @@ L<http://search.cpan.org/dist/WWW-Piwik-API/>
 =back
 
 
-=head1 ACKNOWLEDGEMENTS
+=head1 SEE ALSO
+
+L<https://developer.piwik.org/api-reference/tracking-api>
 
 
 =head1 LICENSE AND COPYRIGHT

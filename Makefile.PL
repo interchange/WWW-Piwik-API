@@ -18,8 +18,10 @@ WriteMakefile(
         'Test::More' => 0,
     },
     PREREQ_PM => {
-        #'ABC'              => 1.6,
-        #'Foo::Bar::Module' => 5.0401,
+                  Moo => 0,
+                  'LWP::UserAgent' => 0,
+                  'JSON::MaybeXS' => 0,
+                  'LWP::Protocol::https' => 0,
     },
     dist  => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean => { FILES => 'WWW-Piwik-API-*' },
