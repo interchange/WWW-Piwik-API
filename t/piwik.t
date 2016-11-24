@@ -25,7 +25,6 @@ my %data = (
 
 my $uri = $tracker->track_uri(%data);
 ok ($uri);
-diag "$uri";
 is_deeply({ $uri->query_form },
           {
            %data,
@@ -42,7 +41,6 @@ ok($tracker->track_uri(%data));
 if ($ENV{PIWIK_URL} && $ENV{PIWIK_IDSITE}) {
     my $res = $tracker->track(%data);
     ok($res);
-    diag Dumper($res);
 }
 
 done_testing;
