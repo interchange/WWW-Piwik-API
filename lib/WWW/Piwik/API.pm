@@ -48,6 +48,11 @@ The ID of the site being tracked. You can look this up in the piwik console.
 The authentication token (you need an admin account for this, and the
 token can be looked up under Personal settings/API.
 
+=head2 ua
+
+The user agent, which defaults to L<LWP::UserAgent> with a timeout of
+5 seconds.
+
 =cut
 
 has endpoint => (is => 'ro', isa => Str, required => 1);
