@@ -118,47 +118,11 @@ Stefan Hornburg, C<< <racke at linuxia.de> >>
 
 =head1 BUGS
 
-Please report any bugs or feature requests to C<bug-www-piwik-api at rt.cpan.org>, or through
-the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=WWW-Piwik-API>.  I will be notified, and then you'll
-automatically be notified of progress on your bug as I make changes.
-
-
-
-
-=head1 SUPPORT
-
-You can find documentation for this module with the perldoc command.
-
-    perldoc WWW::Piwik::API
-
-
-You can also look for information at:
-
-=over 4
-
-=item * RT: CPAN's request tracker (report bugs here)
-
-L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=WWW-Piwik-API>
-
-=item * AnnoCPAN: Annotated CPAN documentation
-
-L<http://annocpan.org/dist/WWW-Piwik-API>
-
-=item * CPAN Ratings
-
-L<http://cpanratings.perl.org/d/WWW-Piwik-API>
-
-=item * Search CPAN
-
-L<http://search.cpan.org/dist/WWW-Piwik-API/>
-
-=back
-
+Please report any bugs or feature requests at L<https://github.com/interchange/WWW-Piwik-API/issues>.
 
 =head1 SEE ALSO
 
 L<https://developer.piwik.org/api-reference/tracking-api>
-
 
 =head1 LICENSE AND COPYRIGHT
 
