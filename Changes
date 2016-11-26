@@ -1,5 +1,7 @@
-Revision history for WWW-Piwik-API
+Revision history for WWW::Piwik::API
 
-0.01    Date/time
-        First version, released on an unsuspecting world.
+0.01 Sat Nov 26 16:05:47 2016 CET
+     
+     * Initial release.
+
 
