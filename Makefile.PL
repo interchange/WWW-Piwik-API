@@ -25,4 +25,12 @@ WriteMakefile(
     },
     dist  => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean => { FILES => 'WWW-Piwik-API-*' },
+
+    META_MERGE => {
+        resources => {
+            repository  => 'https://github.com/interchange/WWW-Piwik-API.git',
+            bugtracker => 'https://github.com/interchange/WWW-Piwik-API/issues',
+            IRC => 'irc://irc.freenode.net/#interchange',
+        },
+    },
 );
