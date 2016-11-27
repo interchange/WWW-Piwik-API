@@ -15,11 +15,11 @@ WWW::Piwik::API - Tracking module for Piwik using the Tracking API
 
 =head1 VERSION
 
-Version 0.01
+Version 0.011
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.011';
 
 
 =head1 SYNOPSIS
