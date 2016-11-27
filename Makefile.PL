@@ -22,6 +22,7 @@ WriteMakefile(
                   'LWP::UserAgent' => 0,
                   'JSON::MaybeXS' => 0,
                   'LWP::Protocol::https' => 0,
+                  'Type::Tiny' => 0,
     },
     dist  => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean => { FILES => 'WWW-Piwik-API-*' },
